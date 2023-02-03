@@ -1,13 +1,13 @@
 <form novalidate (ngSubmit)="onSubmit()" [formGroup]="registerForm"
   class="row justify-content-md-center">
   <label>Email: </label>
-  <input class="form-control" type="text" id="example-text-input" (ngModelChange)="onChange()"
+  <input class="form-control" type="email" id="example-text-input" (ngModelChange)="onChange()"
   formControlName="email">
   <label>Password: </label>
-  <input class="form-control" type="text" id="example-text-input" (ngModelChange)="onChange()"
+  <input class="form-control" type="password" id="example-text-input" (ngModelChange)="onChange()"
   formControlName="password">
   <label>Confirm Password: </label>
-  <input class="form-control" type="text" id="example-text-input" (ngModelChange)="onChange()"
+  <input class="form-control" type="password" id="example-text-input" (ngModelChange)="onChange()"
   formControlName="passwordConfirm">
   <label>Country: </label>
   <input class="form-control" type="text" id="example-text-input" (ngModelChange)="onChange()"
