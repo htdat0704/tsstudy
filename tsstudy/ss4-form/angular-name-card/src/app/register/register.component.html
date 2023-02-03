@@ -1,0 +1,32 @@
+<form novalidate (ngSubmit)="onSubmit()" [formGroup]="registerForm"
+  class="row justify-content-md-center">
+  <label>Email: </label>
+  <input class="form-control" type="text" id="example-text-input" (ngModelChange)="onChange()"
+  formControlName="email">
+  <label>Password: </label>
+  <input class="form-control" type="text" id="example-text-input" (ngModelChange)="onChange()"
+  formControlName="password">
+  <label>Confirm Password: </label>
+  <input class="form-control" type="text" id="example-text-input" (ngModelChange)="onChange()"
+  formControlName="passwordConfirm">
+  <label>Country: </label>
+  <input class="form-control" type="text" id="example-text-input" (ngModelChange)="onChange()"
+  formControlName="country">
+  <label>Age: </label>
+  <input class="form-control" type="text" id="example-text-input" (ngModelChange)="onChange()"
+  formControlName="age">
+  <label>Gender: </label>
+  <input class="form-control" type="text" id="example-text-input" (ngModelChange)="onChange()"
+  formControlName="gender">
+  <label>Phone: </label>
+  <input class="form-control" type="text" id="example-text-input" (ngModelChange)="onChange()"
+  formControlName="phone">
+  <label>Submit: </label>
+  <input class="form-control" type="submit" id="example-text-input">
+</form>
+
+<p style="color: red;" *ngIf="registerForm.status === 'INVALID';else elseBlock ">
+    {{ registerForm.status }}
+</p>
+<ng-template #elseBlock style="color: green;">{{ registerForm.status }}</ng-template>
+<p *ngIf="error" >{{error}}</p>

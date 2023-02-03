@@ -1,0 +1,11 @@
+.unit {
+    padding: 20px;
+    margin: 4px;
+    border: 1px solid black;
+    background-color: gray;
+    cursor: pointer;
+}
+
+.active{
+    background: red;
+}

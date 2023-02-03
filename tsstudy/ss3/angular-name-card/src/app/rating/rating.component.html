@@ -1,0 +1,8 @@
+<p>rating works!</p>
+{{rating}}
+<div class="box">
+    <!-- <div *ngFor="let unit of ratingUnit" class="box-rating" (click)="clickRating(unit.value)" [class.active] = "unit.active"> -->
+    <div *ngFor="let unit of ratingUnit"  >    
+        <app-unit [unit]="unit" (clickOnRating)="clickRating($event)"></app-unit>
+    </div>
+</div>
