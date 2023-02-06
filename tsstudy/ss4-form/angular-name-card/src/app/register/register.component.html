@@ -1,23 +1,32 @@
 <form novalidate (ngSubmit)="onSubmit()" [formGroup]="registerForm"
   class="row justify-content-md-center">
   <label>Email: </label>
-  <input class="form-control" type="email" id="example-text-input" (ngModelChange)="onChange()"
+  <input class="form-control" type="email" required id="example-text-input" (ngModelChange)="onChange()"
   formControlName="email">
   <label>Password: </label>
-  <input class="form-control" type="password" id="example-text-input" (ngModelChange)="onChange()"
+  <input class="form-control" type="password" required id="example-text-input" (ngModelChange)="onChange()"
   formControlName="password">
   <label>Confirm Password: </label>
-  <input class="form-control" type="password" id="example-text-input" (ngModelChange)="onChange()"
+  <input class="form-control" type="password" required id="example-text-input" (ngModelChange)="onChange()"
   formControlName="passwordConfirm">
-  <label>Country: </label>
-  <input class="form-control" type="text" id="example-text-input" (ngModelChange)="onChange()"
-  formControlName="country">
+  <div class="form-group" >
+    <label for="selectAction">Country</label>
+    <select name="option" class="form-control" id="selectAction" formControlName="country">
+        <option *ngFor="let op of options" [value]="op">
+            {{ op }}
+        </option>
+    </select>
+</div>
   <label>Age: </label>
-  <input class="form-control" type="text" id="example-text-input" (ngModelChange)="onChange()"
+  <input class="form-control" type="number" required id="example-text-input" (ngModelChange)="onChange()"
   formControlName="age">
   <label>Gender: </label>
-  <input class="form-control" type="text" id="example-text-input" (ngModelChange)="onChange()"
-  formControlName="gender">
+  <label class="btn" [class.active] = "registerForm.controls.gender.value">
+  <input type="radio" [value]=true formControlName="gender"> MALE
+  </label>
+  <label class="btn" [class.active] = "!registerForm.controls.gender.value">
+  <input type="radio" [value]=false formControlName="gender"> FEMALE
+  </label>
   <label>Phone: </label>
   <input class="form-control" type="text" id="example-text-input" (ngModelChange)="onChange()"
   formControlName="phone">
@@ -29,4 +38,5 @@
     {{ registerForm.status }}
 </p>
 <ng-template #elseBlock style="color: green;">{{ registerForm.status }}</ng-template>
+<p *ngIf="registerForm.errors" >{{registerForm.errors | json}}</p>
 <p *ngIf="error" >{{error}}</p>

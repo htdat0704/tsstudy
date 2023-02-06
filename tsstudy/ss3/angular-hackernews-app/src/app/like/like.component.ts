@@ -10,7 +10,6 @@ export class LikeComponent {
   @Input() like?: number;
  
   @Output() likeArticle = new EventEmitter<number>();
-
   addLike = (index: any) => {
     this.likeArticle.emit(index);
   }

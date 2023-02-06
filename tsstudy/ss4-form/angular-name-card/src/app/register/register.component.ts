@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Register } from '../register';
 import {FormControl, FormGroup, Validators, FormBuilder, AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { ValidationService } from './validate.service';
 
 
 @Component({
@@ -9,12 +10,7 @@ import {FormControl, FormGroup, Validators, FormBuilder, AbstractControl, Valida
   styleUrls: ['./register.component.css']
 })
 
-// export const passValidation = (control: FormGroup): { [key: string]: boolean } | null => {
-//   const password = control.get('password');
-//   const confirmPassword = control.get('passwordConfirm');
 
-//   return password !== confirmPassword ? { isError: true } : null;
-// }
 
 export class RegisterComponent {
   register : Register = {
@@ -25,13 +21,16 @@ export class RegisterComponent {
     gender: false,
     phone: ""
   };
+
+  options: string[] = ["VN", "USA", "CN", "KR", "JP", "CAN", "ARG"]
   error: string = "";
 
-  
   // registerForm! : FormGroup;
   // registerForm : FormGroup | undefined;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private v : ValidationService) {
+    this.registerForm.validator = this.v.passwordMatch();
+  }
 
   ngOnInit() {
     // this.registerForm = new FormGroup({
@@ -43,39 +42,16 @@ export class RegisterComponent {
     //   gender: new FormControl(false),
     //   phone: new FormControl("")
     // })
-    
   }
-
-  createPasswordStrengthValidator(): ValidatorFn {
-    return (control:AbstractControl) : ValidationErrors | null => {
-
-        const value = control.value;
-
-        if (!value) {
-            return null;
-        }
-
-        const hasUpperCase = /[A-Z]+/.test(value);
-
-        const hasLowerCase = /[a-z]+/.test(value);
-
-        const hasNumeric = /[0-9]+/.test(value);
-
-        const passwordValid = hasUpperCase && hasLowerCase && hasNumeric;
-
-        return !passwordValid ? {passwordStrength:true}: null;
-    }
-}
 
   registerForm =this.fb.group({
     email: ["",[Validators.required,Validators.email]],
-    password: ["",[Validators.required,Validators.minLength(6),this.createPasswordStrengthValidator]],
-    passwordConfirm: ["",[Validators.required,Validators.minLength(6),this.createPasswordStrengthValidator]],
+    password: ["",[Validators.required,Validators.minLength(6)]],
+    passwordConfirm: ["",[Validators.required,Validators.minLength(6)]],
     country: "",
-    age: 0,
+    age: [0,this.v.ageGreaterThan18()],
     gender: false,
-    phone: ""
-  })
+    phone: ["",this.v.regexPhone()]})
 
   onChange(){
     if(this.registerForm.status === "VALID"){
